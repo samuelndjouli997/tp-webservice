@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:tns="http://www.example.com/PaniersService/"
+             targetNamespace="http://www.example.com/PaniersService/">
+
+    <types>
+        <xsd:schema targetNamespace="http://www.example.com/PaniersService/">
+            <xsd:complexType name="Panier">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:int"/>
+                    <xsd:element name="produits" type="tns:ProduitArray"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="Produit">
+                <xsd:sequence>
+                    <xsd:element name="id" type="xsd:int"/>
+                    <xsd:element name="nom" type="xsd:string"/>
+                    <xsd:element name="quantite" type="xsd:int"/>
+                    <xsd:element name="prix" type="xsd:double"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ProduitArray">
+                <xsd:sequence>
+                    <xsd:element name="produit" type="tns:Produit" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+
+    <message name="ajouterProduitRequest">
+        <part name="panierId" type="xsd:int"/>
+        <part name="produit" type="tns:Produit"/>
+    </message>
+    <message name="ajouterProduitResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+
+    <message name="supprimerProduitRequest">
+        <part name="panierId" type="xsd:int"/>
+        <part name="produitId" type="xsd:int"/>
+    </message>
+    <message name="supprimerProduitResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+
+    <message name="recupererProduitsRequest">
+        <part name="panierId" type="xsd:int"/>
+    </message>
+    <message name="recupererProduitsResponse">
+        <part name="produits" type="tns:ProduitArray"/>
+    </message>
+
+    <message name="listerPaniersRequest">
+    </message>
+    <message name="listerPaniersResponse">
+        <part name="paniers" type="tns:PanierArray"/>
+    </message>
+
+    <portType name="PaniersServicePortType">
+        <operation name="ajouterProduit">
+            <input message="tns:ajouterProduitRequest"/>
+            <output message="tns:ajouterProduitResponse"/>
+        </operation>
+        <operation name="supprimerProduit">
+            <input message="tns:supprimerProduitRequest"/>
+            <output message="tns:supprimerProduitResponse"/>
+        </operation>
+        <operation name="recupererProduits">
+            
+           
+            <input message="tns:recupererProduitsRequest"/>
+            <output message="tns:recupererProduitsResponse"/>
+        </operation>
+        <operation name="listerPaniers">
+            <input message="tns:listerPaniersRequest"/>
+            <output message="tns:listerPaniersResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="PaniersServiceBinding" type="tns:PaniersServicePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="ajouterProduit">
+            <soap:operation soapAction="http://www.example.com/PaniersService/ajouterProduit"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="supprimerProduit">
+            <soap:operation soapAction="http://www.example.com/PaniersService/supprimerProduit"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="recupererProduits">
+            <soap:operation soapAction="http://www.example.com/PaniersService/recupererProduits"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="listerPaniers">
+            <soap:operation soapAction="http://www.example.com/PaniersService/listerPaniers"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="PaniersService">
+        <port name="PaniersServicePort" binding="tns:PaniersServiceBinding">
+            <soap:address location="http://www.example.com/PaniersService/"/>
+        </port>
+    </service>
+</definitions>

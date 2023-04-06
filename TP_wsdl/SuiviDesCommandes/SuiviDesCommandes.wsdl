@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions name="Nom_du_service" 
+            targetNamespace="http://example.com/service" 
+            xmlns="http://schemas.xmlsoap.org/wsdl/" 
+            xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <!-- Les définitions des types de données et des messages seront ajoutées dans les étapes suivantes. -->
+  
+  <message name="Nom_du_message">
+    <part name="Paramètre_1" type="xsd:string" />
+    <part name="Paramètre_2" type="xsd:int" />
+  </message>
+
+  <portType name="Nom_du_portType">
+    <operation name="Nom_de_l'opération">
+      <input message="tns:Nom_du_message" />
+      <output message="tns:Nom_du_message" />
+    </operation>
+  </portType>
+
+  <binding name="Nom_du_binding" type="tns:Nom_du_portType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="Nom_de_l'opération">
+      <soap:operation soapAction="http://example.com/service/Nom_de_l'opération" />
+      <input>
+        <soap:body use="encoded" namespace="http://example.com/service" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output>
+        <soap:body use="encoded" namespace="http://example.com/service" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+  </binding>
+
+  <service name="Nom_du_service">
+    <port name="Nom_du_port" binding="tns:Nom_du_binding">
+      <soap:address location="http://example.com/service/Nom_du_port" />
+    </port>
+  </service>
+  
+  <types>
+    <xsd:schema targetNamespace="http://example.com/service">
+      <xsd:complexType name="Nom_du_type">
+        <xsd:sequence>
+          <xsd:element name="Paramètre_1" type="xsd:string" />
+          <xsd:element name="Paramètre_2" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </types>
+
+
+</definitions>
